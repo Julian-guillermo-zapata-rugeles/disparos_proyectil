@@ -4,6 +4,7 @@
 #include <QGraphicsItem>
 #include "movimientoparabolico.h"
 #include <proyectil.h>
+#include <canones.h>
 #include <QGraphicsScene>
 #include <QKeyEvent>
 
@@ -18,6 +19,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     proyectil *balaCanon;
+    canones *canonUno;
     QGraphicsScene *escena;
     void keyPressEvent(QKeyEvent *evento);
     ~MainWindow();

@@ -9,7 +9,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    balaCanon= new proyectil(10,30,50,400,20,20);
+    balaCanon= new proyectil(10,50,50,400,20,20);
+    //canonUno = new canones(40,20,10,400);
+    //escena->addItem(canonUno);
     escena = new QGraphicsScene(0,0,1000,500);
     ui->visorGrafico->setScene(escena);
     escena->addItem(balaCanon);
@@ -24,6 +26,12 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
 {
         //---------------  espacio   ---------------
         if(evento->key()==Qt::Key_Space){
+            balaCanon->moverProyectil();
+        }
+        if(evento->key()==Qt::Key_W){
+            //balaCanon->move
+        }
+        if(evento->key()==Qt::Key_S){
             balaCanon->moverProyectil();
         }
 }
