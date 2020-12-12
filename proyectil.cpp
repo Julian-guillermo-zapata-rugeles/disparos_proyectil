@@ -10,6 +10,11 @@ int proyectil::getX_position() const
     return posicion_x;
 }
 
+void proyectil::setAngulo(signed short angle)
+{
+    setAnguloDisparo(angle);
+}
+
 proyectil::proyectil(short int angulo , signed short int velocidad ,int x, int y , int ancho_, int alto_ ):
     movimientoParabolico(angulo,velocidad , x , y)
 {

@@ -21,6 +21,8 @@ public:
    void moverProyectil();
    int getY_position() const;
    int getX_position() const;
+   void setAngulo(signed short int);
+
 };
 
 #endif // PROYECTIL_H

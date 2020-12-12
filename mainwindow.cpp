@@ -32,13 +32,23 @@ MainWindow::~MainWindow()
 
 void MainWindow::moverObjetos()
 {
+    for(auto& defensa:proyectilesDefensivos){
+        defensa->moverProyectil();
+    }
     for(auto& iterador:proyectiles){
         iterador->moverProyectil();
+        bool detection=canonDos->detectarAmenaza(iterador->getX_position(),iterador->getY_position());
+        if(detection==true){
+            tmpProyectil =new proyectil(- canonDos->getAngulo(),100,canonDos->getCoordenada_x()+30,canonDos->getCoordenada_y(),20,20);
+            tmpProyectil->setAngulo(90);
+            escena->addItem(tmpProyectil);
+            proyectilesDefensivos.push_back(tmpProyectil);
+        }
     }
     for(auto& iterador:proyectiles){
         //std::cout << iterador->getY_position() << std::endl;
         if(iterador->getY_position()<0){
-            std::cout << " eliminado " << std::endl;
+            //std::cout << " eliminado " << std::endl;
         }
     }
 

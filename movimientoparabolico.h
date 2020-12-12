@@ -21,6 +21,8 @@ protected:
 public:
     movimientoParabolico(ssi _angulo , ssi _velocidad ,signed int  x_pos , signed int y_pos);
     void avanzarProyectil();
+    signed short getAnguloDisparo() const;
+    void setAnguloDisparo(signed short value);
 };
 
 #endif // MOVIMIENTOPARABOLICO_H
