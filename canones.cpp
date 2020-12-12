@@ -1,4 +1,5 @@
 #include "canones.h"
+#include <math.h>
 #include <iostream>
 
 
@@ -15,6 +16,16 @@ signed short canones::getCoordenada_y() const
 signed short canones::getAngulo() const
 {
     return angulo;
+}
+
+bool canones::detectarAmenaza(signed short x, signed short y)
+{
+    double Distanciaamenaza = sqrt ( pow((coordenada_x-x),2)+pow((coordenada_y-y),2));
+    std::cout << Distanciaamenaza <<" metros "<< std::endl;
+    if(Distanciaamenaza<10){
+        return true;
+    }
+    return false;
 }
 
 void canones::actualizar()

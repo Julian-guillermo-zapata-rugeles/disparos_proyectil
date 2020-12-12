@@ -21,7 +21,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     QVector <proyectil*> proyectiles;
+    QVector <proyectil*> proyectilesDefensivos;
     canones *canonUno;
+    canones *canonDos;
     proyectil *tmpProyectil;
     QTimer *reloj;
     QGraphicsScene *escena;

@@ -9,11 +9,12 @@ private:
     signed short int angulo;
     unsigned short int ancho , alto ;
     signed short int coordenada_x , coordenada_y ;
+    // caracteristica defensiva del objeto
 public:
     void actualizar();
     void subir();
     void bajar();
-
+    bool detectarAmenaza(signed short int x ,signed short int y);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     canones(unsigned short int ancho,unsigned short int alto,signed short int x,signed short int y);

@@ -4,6 +4,7 @@
 #include <QGraphicsItem>
 #include <QPainter>
 #include "movimientoparabolico.h"
+#include <math.h>
 
 class proyectil: public QGraphicsItem , public movimientoParabolico
 {

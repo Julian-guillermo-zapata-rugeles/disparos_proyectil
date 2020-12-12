@@ -14,11 +14,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(reloj,SIGNAL(timeout()),this,SLOT(moverObjetos()));
     reloj->start(50);
     canonUno = new canones(100,20,20,470);
+    canonDos = new canones(100,20,900,470);
     canonUno->setTransformOriginPoint(canonUno->boundingRect().center());
-    escena = new QGraphicsScene(0,0,1000,500);
+    canonDos->setTransformOriginPoint(canonDos->boundingRect().center());
+    escena = new QGraphicsScene(0,0,1100,500);
     ui->visorGrafico->setScene(escena);
 
     escena->addItem(canonUno);
+    escena->addItem(canonDos);
 
 }
 
