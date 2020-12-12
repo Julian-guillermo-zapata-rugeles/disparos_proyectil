@@ -1,6 +1,6 @@
 #include "movimientoparabolico.h"
 #include <math.h>
-#include <QGraphicsItem>
+
 
 movimientoParabolico::movimientoParabolico(ssi _angulo_ , ssi velocidad_int ,signed int _x_ , signed int _y_)
 {

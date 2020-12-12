@@ -2,6 +2,7 @@
 #define MOVIMIENTOPARABOLICO_H
 #define ssi signed short int
 
+
 class movimientoParabolico
 {
 protected:

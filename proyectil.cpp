@@ -1,12 +1,10 @@
 #include "proyectil.h"
-#include <QGraphicsItem>
-#include <QPainter>
 
-
-proyectil::proyectil(int an, int al, int x, int y)
+proyectil::proyectil(short int angulo , signed short int velocidad ,int x, int y , int ancho_, int alto_ ):
+    movimientoParabolico(angulo,velocidad , x , y)
 {
-    ancho=an;
-    alto=al;
+    ancho=ancho_;
+    alto=alto_;
     x_position=x;
     y_position=y;
 }
@@ -16,7 +14,7 @@ QRectF proyectil::boundingRect() const
     return QRectF(x_position,y_position,ancho,alto);
 }
 
-void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void proyectil::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
     painter->setBrush(Qt::yellow);
     painter->drawEllipse(boundingRect());
