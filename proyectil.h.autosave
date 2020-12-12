@@ -1,0 +1,20 @@
+#ifndef PROYECTIL_H
+#define PROYECTIL_H
+#include <QGraphicsItem>
+#include <QPainter>
+
+class proyectil:public QGraphicsItem
+{
+private:
+   signed int ancho;
+   signed int alto ;
+   int x_position;
+   int y_position;
+public:
+   proyectil(int _ancho_, int _alto_, int _x_pos, int _y_pos);
+   void mostrar_pared();
+   QRectF boundingRect() const;
+   void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget );
+};
+
+#endif // PROYECTIL_H
