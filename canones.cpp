@@ -1,20 +1,24 @@
 #include "canones.h"
 #include <iostream>
-#include "proyectil.h"
+
+
 void canones::actualizar()
 {
     this->setPos(coordenada_x,coordenada_y);
     std::cout << coordenada_x <<" - "<<coordenada_y<< std::endl;
+
 }
 
 void canones::subir()
 {
-    angulo=angulo+1;
+    angulo=angulo-1;
+    this->setRotation(angulo);
 }
 
 void canones::bajar()
 {
-    angulo=angulo-1;
+    angulo=angulo+1;
+    this->setRotation(angulo);
 }
 
 
@@ -35,5 +39,5 @@ canones::canones(unsigned short _ancho, unsigned short _alto, signed short _x, s
     alto=_alto;
     coordenada_x=_x;
     coordenada_y=_y;
-    angulo=45;
+    angulo=0;
 }

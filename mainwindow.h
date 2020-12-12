@@ -7,6 +7,7 @@
 #include <canones.h>
 #include <QGraphicsScene>
 #include <QKeyEvent>
+#include <QVector>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,7 +19,7 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    proyectil *balaCanon;
+    QVector <proyectil*> proyectiles;
     canones *canonUno;
     QGraphicsScene *escena;
     void keyPressEvent(QKeyEvent *evento);

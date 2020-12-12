@@ -2,7 +2,6 @@
 #define CANONES_H
 #include <QPainter>
 #include <QGraphicsItem>
-#include "proyectil.h"
 
 class canones:public QGraphicsItem
 {
@@ -11,7 +10,6 @@ private:
     unsigned short int ancho , alto ;
     signed short int coordenada_x , coordenada_y ;
 public:
-    void disparar();
     void actualizar();
     void subir();
     void bajar();
