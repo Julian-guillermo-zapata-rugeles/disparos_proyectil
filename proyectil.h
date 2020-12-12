@@ -18,6 +18,8 @@ public:
    QRectF boundingRect() const;
    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget );
    void moverProyectil();
+   int getY_position() const;
+   int getX_position() const;
 };
 
 #endif // PROYECTIL_H

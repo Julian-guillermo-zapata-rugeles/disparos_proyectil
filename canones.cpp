@@ -2,6 +2,21 @@
 #include <iostream>
 
 
+signed short canones::getCoordenada_x() const
+{
+    return coordenada_x;
+}
+
+signed short canones::getCoordenada_y() const
+{
+    return coordenada_y;
+}
+
+signed short canones::getAngulo() const
+{
+    return angulo;
+}
+
 void canones::actualizar()
 {
     this->setPos(coordenada_x,coordenada_y);

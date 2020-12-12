@@ -1,5 +1,15 @@
 #include "proyectil.h"
 
+int proyectil::getY_position() const
+{
+    return posicion_y;
+}
+
+int proyectil::getX_position() const
+{
+    return posicion_x;
+}
+
 proyectil::proyectil(short int angulo , signed short int velocidad ,int x, int y , int ancho_, int alto_ ):
     movimientoParabolico(angulo,velocidad , x , y)
 {
