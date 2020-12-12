@@ -9,7 +9,7 @@
 #include <QKeyEvent>
 #include <QVector>
 #include <QTimer>
-
+#include <QtMultimedia>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -21,6 +21,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     bool defendiendose=false;
+    QMediaPlayer *reproductor = new QMediaPlayer;
     QVector <proyectil*> proyectiles;
     QVector <proyectil*> proyectilesDefensivos;
     canones *canonUno;

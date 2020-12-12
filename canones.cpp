@@ -24,7 +24,7 @@ bool canones::detectarAmenaza(signed short x, signed short y)
     double toleranciaY=abs(coordenada_y+y);
     //double Distanciaamenaza = sqrt ( pow((x-coordenada_x),2)+pow((coordenada_y+y),2));
     std::cout << toleranciaX <<" y "<< toleranciaY << std::endl;
-    if(toleranciaX<350 and toleranciaY > 350){
+    if(toleranciaX<100 and toleranciaY > 50){
         std::cout << "Amenzada de colisión" << std::endl;
         return true;
     }

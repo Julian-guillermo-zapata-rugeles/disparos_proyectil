@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>sonidos/disparar.mp3</file>
+        <file>sonidos/det.mp3</file>
+    </qresource>
+</RCC>

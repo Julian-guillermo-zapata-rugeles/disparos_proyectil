@@ -35,11 +35,25 @@ void MainWindow::moverObjetos()
     for(auto& defensa:proyectilesDefensivos){
         defensa->moverProyectil();
         for(auto& it:proyectiles){
-            if(defensa->getX_position()-it->getX_position()<50){
-                if(defensa->getY_position()-it->getY_position()<50){
-                    std::cout << "colisión OK" << std::endl;
-                }
+            if(it->collidesWithItem(defensa)){
+                reproductor->setMedia(QUrl("qrc:/sonidos/det.mp3"));
+                reproductor->play();
+                escena->removeItem(it);
+                escena->removeItem(defensa);
+                proyectilesDefensivos.erase(std::remove(proyectilesDefensivos.begin(),proyectilesDefensivos.end(),defensa),proyectilesDefensivos.end());
+                proyectiles.erase(std::remove(proyectiles.begin(),proyectiles.end(),it),proyectiles.end());
+                defendiendose=false;
+
             }
+            if(defensa->getY_position()<0){
+                proyectilesDefensivos.erase(std::remove(proyectilesDefensivos.begin(),proyectilesDefensivos.end(),defensa),proyectilesDefensivos.end());
+                escena->removeItem(defensa);
+            }
+            if(it->getY_position()<0){
+                proyectiles.erase(std::remove(proyectiles.begin(),proyectiles.end(),it),proyectiles.end());
+                escena->removeItem(it);
+            }
+
         }
     }
     for(auto& iterador:proyectiles){
@@ -48,7 +62,7 @@ void MainWindow::moverObjetos()
         if(detection==true and defendiendose==false){
              srand(time(0));
             for(unsigned short int a =0 ; a<3;a++){
-                short int aleatorio = 120+ rand() % 150;
+                //short int aleatorio = 120+ rand() % 150;
                 tmpProyectil =new proyectil(90-canonUno->getAngulo(),50,canonDos->getCoordenada_x()+30,canonDos->getCoordenada_y(),20,20);
                 tmpProyectil->setAngulo(90);
                 proyectilesDefensivos.push_back(tmpProyectil);
@@ -77,7 +91,8 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
             tmpProyectil =new proyectil(-canonUno->getAngulo(),100,canonUno->getCoordenada_x()+30,canonUno->getCoordenada_y(),20,20);
             escena->addItem(tmpProyectil);
             proyectiles.push_back(tmpProyectil);
-        }
+            reproductor->setMedia(QUrl("qrc:/sonidos/disparar.mp3"));
+            reproductor->play();        }
         if(evento->key()==Qt::Key_W){
             //balaCanon->move
             canonUno->subir();
