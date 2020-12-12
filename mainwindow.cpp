@@ -4,7 +4,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsItem>
 #include <iostream>
-
+#include <random>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -34,15 +34,29 @@ void MainWindow::moverObjetos()
 {
     for(auto& defensa:proyectilesDefensivos){
         defensa->moverProyectil();
+        for(auto& it:proyectiles){
+            if(defensa->getX_position()-it->getX_position()<50){
+                if(defensa->getY_position()-it->getY_position()<50){
+                    std::cout << "colisión OK" << std::endl;
+                }
+            }
+        }
     }
     for(auto& iterador:proyectiles){
         iterador->moverProyectil();
         bool detection=canonDos->detectarAmenaza(iterador->getX_position(),iterador->getY_position());
         if(detection==true and defendiendose==false){
-            tmpProyectil =new proyectil(- canonDos->getAngulo(),100,canonDos->getCoordenada_x()+30,canonDos->getCoordenada_y(),20,20);
-            tmpProyectil->setAngulo(90);
-            escena->addItem(tmpProyectil);
-            proyectilesDefensivos.push_back(tmpProyectil);
+             srand(time(0));
+            for(unsigned short int a =0 ; a<3;a++){
+                short int aleatorio = 120+ rand() % 150;
+                tmpProyectil =new proyectil(90-canonUno->getAngulo(),50,canonDos->getCoordenada_x()+30,canonDos->getCoordenada_y(),20,20);
+                tmpProyectil->setAngulo(90);
+                proyectilesDefensivos.push_back(tmpProyectil);
+                //delete tmpProyectil;
+            }
+            for(auto& it:proyectilesDefensivos){
+                escena->addItem(it);
+            }
             defendiendose=true;
         }
     }
