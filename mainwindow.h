@@ -20,6 +20,7 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
+    bool defendiendose=false;
     QVector <proyectil*> proyectiles;
     QVector <proyectil*> proyectilesDefensivos;
     canones *canonUno;

@@ -38,11 +38,12 @@ void MainWindow::moverObjetos()
     for(auto& iterador:proyectiles){
         iterador->moverProyectil();
         bool detection=canonDos->detectarAmenaza(iterador->getX_position(),iterador->getY_position());
-        if(detection==true){
+        if(detection==true and defendiendose==false){
             tmpProyectil =new proyectil(- canonDos->getAngulo(),100,canonDos->getCoordenada_x()+30,canonDos->getCoordenada_y(),20,20);
             tmpProyectil->setAngulo(90);
             escena->addItem(tmpProyectil);
             proyectilesDefensivos.push_back(tmpProyectil);
+            defendiendose=true;
         }
     }
     for(auto& iterador:proyectiles){

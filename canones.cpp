@@ -20,9 +20,11 @@ signed short canones::getAngulo() const
 
 bool canones::detectarAmenaza(signed short x, signed short y)
 {
-    double Distanciaamenaza = sqrt ( pow((x-coordenada_x),2)+pow((coordenada_y+y),2));
-    std::cout << Distanciaamenaza<<" metros "<< std::endl;
-    if(Distanciaamenaza>450 and Distanciaamenaza<550){
+    double toleranciaX=abs(x-coordenada_x);
+    double toleranciaY=abs(coordenada_y+y);
+    //double Distanciaamenaza = sqrt ( pow((x-coordenada_x),2)+pow((coordenada_y+y),2));
+    std::cout << toleranciaX <<" y "<< toleranciaY << std::endl;
+    if(toleranciaX<150 and toleranciaY > 350){
         std::cout << "Amenzada de colisión" << std::endl;
         return true;
     }
