@@ -20,3 +20,9 @@ void proyectil::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->drawEllipse(boundingRect());
 
 }
+
+void proyectil::moverProyectil()
+{
+    this->avanzarProyectil();
+    this->setPos(posicion_x,-posicion_y);
+}

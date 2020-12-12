@@ -5,6 +5,7 @@
 #include "movimientoparabolico.h"
 #include <proyectil.h>
 #include <QGraphicsScene>
+#include <QKeyEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,6 +19,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     proyectil *balaCanon;
     QGraphicsScene *escena;
+    void keyPressEvent(QKeyEvent *evento);
     ~MainWindow();
 
 private:

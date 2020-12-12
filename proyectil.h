@@ -5,7 +5,7 @@
 #include <QPainter>
 #include "movimientoparabolico.h"
 
-class proyectil: public QGraphicsItem , private movimientoParabolico
+class proyectil: public QGraphicsItem , public movimientoParabolico
 {
 private:
    signed int ancho;
@@ -17,6 +17,7 @@ public:
    proyectil(short int angulo_ , signed short int velocidad_, int _x_pos, int _y_pos,int _ancho_, int _alto_);
    QRectF boundingRect() const;
    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget );
+   void moverProyectil();
 };
 
 #endif // PROYECTIL_H
