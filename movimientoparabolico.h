@@ -18,7 +18,9 @@ protected:
     double altura_maxima;
     double velocidad_horizontal;
     double altura_alcanzada;
+
 public:
+    int alcance_maximo;
     movimientoParabolico(ssi _angulo , ssi _velocidad ,signed int  x_pos , signed int y_pos);
     void avanzarProyectil();
     signed short getAnguloDisparo() const;

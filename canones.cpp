@@ -18,17 +18,14 @@ signed short canones::getAngulo() const
     return angulo;
 }
 
-bool canones::detectarAmenaza(signed short x, signed short y)
+bool canones::detectarAmenaza(signed short int alcance)
 {
-    double toleranciaX=abs(x-coordenada_x);
-    double toleranciaY=abs(coordenada_y+y);
-    //double Distanciaamenaza = sqrt ( pow((x-coordenada_x),2)+pow((coordenada_y+y),2));
-    std::cout << toleranciaX <<" y "<< toleranciaY << std::endl;
-    if(toleranciaX<100 and toleranciaY > 50){
-        std::cout << "Amenzada de colisión" << std::endl;
+    if(alcance>coordenada_x-ancho and alcance<coordenada_x+ancho){
         return true;
     }
-    return false;
+    else{
+        return  false;
+    }
 }
 
 void canones::actualizar()

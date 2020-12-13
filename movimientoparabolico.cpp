@@ -1,6 +1,6 @@
 #include "movimientoparabolico.h"
 #include <math.h>
-
+#include <iostream>
 
 signed short movimientoParabolico::getAnguloDisparo() const
 {
@@ -27,6 +27,10 @@ movimientoParabolico::movimientoParabolico(ssi _angulo_ , ssi velocidad_int ,sig
     altura_alcanzada=0;
     tiempo=0;
     altura_maxima= ((sin((anguloDisparo*3.1416)/180)*(sin((anguloDisparo*3.1416)/180)))*(velocidadInstantanea*velocidadInstantanea))/(9.8*2) ;
+    alcance_maximo=abs((pow(velocidadInstantanea,2)*sin(2*((anguloDisparo*3.1416)/180)))/10);
+    std::cout << "velocidad  " << velocidadInstantanea <<std::endl;
+    std::cout << "angulo " << anguloDisparo <<std::endl;
+    std::cout << "alcance maximo horizontal " << alcance_maximo <<std::endl;
 }
 
 void movimientoParabolico::avanzarProyectil()

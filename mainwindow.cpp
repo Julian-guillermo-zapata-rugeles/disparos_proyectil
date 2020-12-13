@@ -9,9 +9,12 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    srand(time(0));
     ui->setupUi(this);
     reloj = new QTimer();
+    deteccion = new QTimer();
     connect(reloj,SIGNAL(timeout()),this,SLOT(moverObjetos()));
+    connect(deteccion,SIGNAL(timeout()),this,SLOT(defensaObjetos()));
     reloj->start(50);
     canonUno = new canones(100,20,20,470);
     canonDos = new canones(100,20,900,470);
@@ -32,48 +35,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::moverObjetos()
 {
-    for(auto& defensa:proyectilesDefensivos){
-        defensa->moverProyectil();
-        for(auto& it:proyectiles){
-            if(it->collidesWithItem(defensa)){
-                reproductor->setMedia(QUrl("qrc:/sonidos/det.mp3"));
-                reproductor->play();
-                escena->removeItem(it);
-                escena->removeItem(defensa);
-                proyectilesDefensivos.erase(std::remove(proyectilesDefensivos.begin(),proyectilesDefensivos.end(),defensa),proyectilesDefensivos.end());
-                proyectiles.erase(std::remove(proyectiles.begin(),proyectiles.end(),it),proyectiles.end());
-                defendiendose=false;
 
-            }
-            if(defensa->getY_position()<0){
-                proyectilesDefensivos.erase(std::remove(proyectilesDefensivos.begin(),proyectilesDefensivos.end(),defensa),proyectilesDefensivos.end());
-                escena->removeItem(defensa);
-            }
-            if(it->getY_position()<0){
-                proyectiles.erase(std::remove(proyectiles.begin(),proyectiles.end(),it),proyectiles.end());
-                escena->removeItem(it);
-            }
-
-        }
-    }
     for(auto& iterador:proyectiles){
         iterador->moverProyectil();
-        bool detection=canonDos->detectarAmenaza(iterador->getX_position(),iterador->getY_position());
-        if(detection==true and defendiendose==false){
-             srand(time(0));
-            for(unsigned short int a =0 ; a<3;a++){
-                //short int aleatorio = 120+ rand() % 150;
-                tmpProyectil =new proyectil(90-canonUno->getAngulo(),50,canonDos->getCoordenada_x()+30,canonDos->getCoordenada_y(),20,20);
-                tmpProyectil->setAngulo(90);
-                proyectilesDefensivos.push_back(tmpProyectil);
-                //delete tmpProyectil;
-            }
-            for(auto& it:proyectilesDefensivos){
-                escena->addItem(it);
-            }
-            defendiendose=true;
         }
-    }
     for(auto& iterador:proyectiles){
         //std::cout << iterador->getY_position() << std::endl;
         if(iterador->getY_position()<0){
@@ -84,6 +49,23 @@ void MainWindow::moverObjetos()
     //escena->advance();
 }
 
+void MainWindow::defensaObjetos()
+{
+
+   for(auto& iterador:proyectiles){
+   bool detection=canonDos->detectarAmenaza(iterador->alcance_maximo);
+   if(detection==true and defendiendose==false){
+         //short int aleatorio = 120+ rand() % 150;
+        tmpProyectil =new proyectil(90-canonUno->getAngulo(),100,canonDos->getCoordenada_x()+30,canonDos->getCoordenada_y(),20,20);
+        proyectilesDefensivos.push_back(tmpProyectil);
+        delete tmpProyectil;
+        reproductor->setMedia(QUrl("qrc:/sonidos/detect.mp3"));
+        reproductor->play();
+
+        }
+   }
+}
+
 void MainWindow::keyPressEvent(QKeyEvent *evento)
 {
         //---------------  espacio   ---------------
@@ -92,7 +74,9 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
             escena->addItem(tmpProyectil);
             proyectiles.push_back(tmpProyectil);
             reproductor->setMedia(QUrl("qrc:/sonidos/disparar.mp3"));
-            reproductor->play();        }
+            reproductor->play();
+            deteccion->start(2000);
+        }
         if(evento->key()==Qt::Key_W){
             //balaCanon->move
             canonUno->subir();

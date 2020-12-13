@@ -28,12 +28,14 @@ public:
     canones *canonDos;
     proyectil *tmpProyectil;
     QTimer *reloj;
+    QTimer *deteccion;
     QGraphicsScene *escena;
     void keyPressEvent(QKeyEvent *evento);
     ~MainWindow();
 
 public slots:
     void moverObjetos();
+    void defensaObjetos();
 private:
     Ui::MainWindow *ui;
 };

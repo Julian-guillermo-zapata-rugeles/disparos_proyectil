@@ -14,7 +14,7 @@ public:
     void actualizar();
     void subir();
     void bajar();
-    bool detectarAmenaza(signed short int x ,signed short int y);
+    bool detectarAmenaza(signed short int);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     canones(unsigned short int ancho,unsigned short int alto,signed short int x,signed short int y);
