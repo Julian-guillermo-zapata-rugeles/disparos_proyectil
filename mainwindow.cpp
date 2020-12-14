@@ -56,6 +56,8 @@ void MainWindow::moverObjetos()
         onair=false;
         deteccion->stop();
         atacar->stop();
+        ui->label_defensa->setText("ESPERANDO ATAQUE");
+        ui->label_defensa->setStyleSheet(" font-weight:600");
     }
     for(auto& ti:proyectiles){
         for(auto& is:proyectilesDefensivos){
@@ -78,6 +80,8 @@ void MainWindow::defensaObjetos()
 {
     if(defendiendose==true){
          atacar->start(300);
+         ui->label_defensa->setText("DEFENDIENDOSE");
+         ui->label_defensa->setStyleSheet(" ont-weight:600");
          reproductor->setMedia(QUrl("qrc:/sonidos/detect.mp3"));
          reproductor->play();
     }
@@ -135,12 +139,12 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
         if(evento->key()==Qt::Key_W){
             //balaCanon->move
             canonUno->subir();
-            ui->labelAngulo->setText(QString::number(canonUno->getAngulo()));
+            ui->labelAngulo->setText(QString::number(-1*canonUno->getAngulo()));
             ui->labelAngulo->setStyleSheet(" font-weight:600");
         }
         if(evento->key()==Qt::Key_S){
             canonUno->bajar();
-            ui->labelAngulo->setText(QString::number(canonUno->getAngulo()));
+            ui->labelAngulo->setText(QString::number(-1*canonUno->getAngulo()));
             ui->labelAngulo->setStyleSheet(" font-weight:600");
         }
 }
