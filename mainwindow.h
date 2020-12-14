@@ -29,14 +29,26 @@ public:
     proyectil *tmpProyectil;
     QTimer *reloj;
     QTimer *deteccion;
+    QTimer *atacar;
     QGraphicsScene *escena;
     void keyPressEvent(QKeyEvent *evento);
     ~MainWindow();
     unsigned short int maximoDisparos=1;
+    unsigned short int maximoDefensivos=1;
 
 public slots:
     void moverObjetos();
     void defensaObjetos();
+    void ataqueSeguido();
+private slots:
+    void on_btn_1_clicked();
+
+    void on_btn_3_clicked();
+
+    void on_btn_1def_clicked();
+
+    void on_btn_3def_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
