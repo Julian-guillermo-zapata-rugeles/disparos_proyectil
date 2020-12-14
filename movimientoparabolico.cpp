@@ -12,6 +12,7 @@ void movimientoParabolico::setAnguloDisparo(signed short value)
     anguloDisparo = value;
 }
 
+
 movimientoParabolico::movimientoParabolico(ssi _angulo_ , ssi velocidad_int ,signed int _x_ , signed int _y_)
 {
     // inicializamos los valores del constructor

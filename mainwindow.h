@@ -32,6 +32,7 @@ public:
     QGraphicsScene *escena;
     void keyPressEvent(QKeyEvent *evento);
     ~MainWindow();
+    unsigned short int maximoDisparos=1;
 
 public slots:
     void moverObjetos();

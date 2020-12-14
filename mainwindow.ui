@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(114, 159, 207);</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QGraphicsView" name="visorGrafico">
     <property name="geometry">
@@ -22,6 +25,71 @@
       <width>1200</width>
       <height>500</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/fondo.jpg);</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>520</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;ANGULO DISPARO :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelAngulo">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>520</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_1">
+    <property name="geometry">
+     <rect>
+      <x>1220</x>
+      <y>10</y>
+      <width>121</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(239, 41, 41);
+color: rgb(255, 255, 255);
+font:20px;</string>
+    </property>
+    <property name="text">
+     <string>1 Proyectil</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btn_2">
+    <property name="geometry">
+     <rect>
+      <x>1220</x>
+      <y>90</y>
+      <width>121</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(239, 41, 41);
+color: rgb(255, 255, 255);
+font:20px;</string>
+    </property>
+    <property name="text">
+     <string>3 Proyectiles</string>
     </property>
    </widget>
   </widget>

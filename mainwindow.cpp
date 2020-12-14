@@ -5,6 +5,7 @@
 #include <QGraphicsItem>
 #include <iostream>
 #include <random>
+#include<QString>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -35,17 +36,20 @@ MainWindow::~MainWindow()
 
 void MainWindow::moverObjetos()
 {
-
-    for(auto& iterador:proyectiles){
-        iterador->moverProyectil();
-        }
-    for(auto& iterador:proyectiles){
-        //std::cout << iterador->getY_position() << std::endl;
-        if(iterador->getY_position()<0){
-            //std::cout << " eliminado " << std::endl;
+    for(auto& it:proyectiles){
+       it->moverProyectil();
+       if(it->getY_position()<0){
+           escena->removeItem(it);
+           proyectiles.erase(std::remove(proyectiles.begin(),proyectiles.end(),it),proyectiles.end());
+       }
+    }
+    for(auto&it:proyectilesDefensivos){
+        it->moverProyectil();
+        if(it->getY_position()<0){
+        escena->removeItem(it);
+        proyectilesDefensivos.erase(std::remove(proyectilesDefensivos.begin(),proyectilesDefensivos.end(),it),proyectilesDefensivos.end());
         }
     }
-
     //escena->advance();
 }
 
@@ -53,12 +57,12 @@ void MainWindow::defensaObjetos()
 {
 
    for(auto& iterador:proyectiles){
-   bool detection=canonDos->detectarAmenaza(iterador->alcance_maximo);
-   if(detection==true and defendiendose==false){
-         //short int aleatorio = 120+ rand() % 150;
+   defendiendose=canonDos->detectarAmenaza(iterador->alcance_maximo);
+   if(defendiendose==true){
+        //short int aleatorio = 90+ rand() % 120;
         tmpProyectil =new proyectil(90-canonUno->getAngulo(),100,canonDos->getCoordenada_x()+30,canonDos->getCoordenada_y(),20,20);
         proyectilesDefensivos.push_back(tmpProyectil);
-        delete tmpProyectil;
+        escena->addItem(tmpProyectil);
         reproductor->setMedia(QUrl("qrc:/sonidos/detect.mp3"));
         reproductor->play();
 
@@ -66,22 +70,30 @@ void MainWindow::defensaObjetos()
    }
 }
 
+
 void MainWindow::keyPressEvent(QKeyEvent *evento)
 {
         //---------------  espacio   ---------------
         if(evento->key()==Qt::Key_Space){
-            tmpProyectil =new proyectil(-canonUno->getAngulo(),100,canonUno->getCoordenada_x()+30,canonUno->getCoordenada_y(),20,20);
-            escena->addItem(tmpProyectil);
-            proyectiles.push_back(tmpProyectil);
+            for(unsigned short int a =0;a<maximoDisparos;a++){
+                tmpProyectil =new proyectil(-canonUno->getAngulo(),100,canonUno->getCoordenada_x()+30,canonUno->getCoordenada_y(),20,20);
+                escena->addItem(tmpProyectil);
+                proyectiles.push_back(tmpProyectil);
+            }
             reproductor->setMedia(QUrl("qrc:/sonidos/disparar.mp3"));
             reproductor->play();
             deteccion->start(2000);
+            defendiendose=false;
         }
         if(evento->key()==Qt::Key_W){
             //balaCanon->move
             canonUno->subir();
+            ui->labelAngulo->setText(QString::number(canonUno->getAngulo()));
+            ui->labelAngulo->setStyleSheet(" font-weight:600");
         }
         if(evento->key()==Qt::Key_S){
             canonUno->bajar();
+            ui->labelAngulo->setText(QString::number(canonUno->getAngulo()));
+            ui->labelAngulo->setStyleSheet(" font-weight:600");
         }
 }

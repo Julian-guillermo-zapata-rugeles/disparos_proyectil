@@ -20,7 +20,7 @@ signed short canones::getAngulo() const
 
 bool canones::detectarAmenaza(signed short int alcance)
 {
-    if(alcance>coordenada_x-ancho and alcance<coordenada_x+ancho){
+    if(alcance>coordenada_x-ancho and alcance<coordenada_x+80){
         return true;
     }
     else{
@@ -55,7 +55,7 @@ QRectF canones::boundingRect() const
 
 void canones::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    painter->setBrush(Qt::gray);
+    painter->setBrush(Qt::black);
     painter->drawRect(boundingRect());
 }
 

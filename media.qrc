@@ -3,5 +3,6 @@
         <file>sonidos/disparar.mp3</file>
         <file>sonidos/det.mp3</file>
         <file>sonidos/detect.mp3</file>
+        <file>fondo.jpg</file>
     </qresource>
 </RCC>

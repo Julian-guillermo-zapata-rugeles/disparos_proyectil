@@ -38,3 +38,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     media.qrc
+
+DISTFILES += \
+    fondo.jpg
