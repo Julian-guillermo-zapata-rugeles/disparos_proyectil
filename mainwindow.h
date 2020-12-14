@@ -35,11 +35,13 @@ public:
     ~MainWindow();
     unsigned short int maximoDisparos=1;
     unsigned short int maximoDefensivos=1;
+    bool onair=false;
 
 public slots:
     void moverObjetos();
     void defensaObjetos();
     void ataqueSeguido();
+    void disparar();
 private slots:
     void on_btn_1_clicked();
 

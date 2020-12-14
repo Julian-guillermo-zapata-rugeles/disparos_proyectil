@@ -19,14 +19,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(reloj,SIGNAL(timeout()),this,SLOT(moverObjetos()));
     connect(deteccion,SIGNAL(timeout()),this,SLOT(defensaObjetos()));
     connect(atacar,SIGNAL(timeout()),this,SLOT(ataqueSeguido()));
-    reloj->start(100);
+    reloj->start(50);
     canonUno = new canones(100,20,20,470);
     canonDos = new canones(100,20,900,470);
     canonUno->setTransformOriginPoint(canonUno->boundingRect().center());
     canonDos->setTransformOriginPoint(canonDos->boundingRect().center());
     escena = new QGraphicsScene(0,0,1100,500);
     ui->visorGrafico->setScene(escena);
-
     escena->addItem(canonUno);
     escena->addItem(canonDos);
 
@@ -53,14 +52,30 @@ void MainWindow::moverObjetos()
         proyectilesDefensivos.erase(std::remove(proyectilesDefensivos.begin(),proyectilesDefensivos.end(),it),proyectilesDefensivos.end());
         }
     }
+    if(proyectiles.size()==0){
+        onair=false;
+    }
+    for(auto& ti:proyectiles){
+        for(auto& is:proyectilesDefensivos){
+            if(ti->collidesWithItem(is)){
+                escena->removeItem(ti);
+                proyectilesDefensivos.erase(std::remove(proyectilesDefensivos.begin(),proyectilesDefensivos.end(),ti),proyectilesDefensivos.end());
+                escena->removeItem(is);
+                proyectilesDefensivos.erase(std::remove(proyectilesDefensivos.begin(),proyectilesDefensivos.end(),is),proyectilesDefensivos.end());
+                reproductor->setMedia(QUrl("qrc:/sonidos/det.mp3"));
+                reproductor->play();
 
-    //escena->advance();
-}
+                }
+
+            }
+        }
+    }
+
 
 void MainWindow::defensaObjetos()
 {
     if(defendiendose==true){
-         atacar->start(500);
+         atacar->start(300);
     }
 }
 
@@ -69,10 +84,15 @@ void MainWindow::ataqueSeguido()
     for(auto& iterador:proyectiles){
     defendiendose=canonDos->detectarAmenaza(iterador->alcance_maximo);
     if(defendiendose==true){
+        if(onair==false){
+            for(unsigned short int a=0;a<maximoDefensivos;a++){
+                tmpProyectil =new proyectil(90-canonUno->getAngulo()-8+rand()%12,130,canonDos->getCoordenada_x()+30,canonDos->getCoordenada_y(),20,20);
+                proyectilesDefensivos.push_back(tmpProyectil);
+                escena->addItem(tmpProyectil);
+                onair=true;
+            }
+        }
          //short int aleatorio = 90+ rand() % 120;
-         tmpProyectil =new proyectil(90-canonUno->getAngulo()-1+rand()%20,100,canonDos->getCoordenada_x()+30,canonDos->getCoordenada_y(),20,20);
-         proyectilesDefensivos.push_back(tmpProyectil);
-         escena->addItem(tmpProyectil);
          reproductor->setMedia(QUrl("qrc:/sonidos/detect.mp3"));
          reproductor->play();
 
@@ -81,20 +101,27 @@ void MainWindow::ataqueSeguido()
 
 }
 
+void MainWindow::disparar()
+{
+    for(unsigned short int a =0;a<maximoDisparos;a++){
+        tmpProyectil =new proyectil(-canonUno->getAngulo() +1+rand()% 10,100,canonUno->getCoordenada_x()+30,canonUno->getCoordenada_y(),20,20);
+        escena->addItem(tmpProyectil);
+        proyectiles.push_back(tmpProyectil);
+            }
+             reproductor->setMedia(QUrl("qrc:/sonidos/disparar.mp3"));
+             reproductor->play();
+             deteccion->stop();
+             deteccion->start(3000);
+             defendiendose=true;
+
+}
+
 
 void MainWindow::keyPressEvent(QKeyEvent *evento)
 {
         //---------------  espacio   ---------------
         if(evento->key()==Qt::Key_Space){
-            for(unsigned short int a =0;a<maximoDisparos;a++){
-                tmpProyectil =new proyectil(-canonUno->getAngulo() +1+rand()% 6,100,canonUno->getCoordenada_x()+30,canonUno->getCoordenada_y(),20,20);
-                escena->addItem(tmpProyectil);
-                proyectiles.push_back(tmpProyectil);
-            }
-            reproductor->setMedia(QUrl("qrc:/sonidos/disparar.mp3"));
-            reproductor->play();
-            deteccion->start(2000);
-            defendiendose=true;
+            disparar();
         }
         if(evento->key()==Qt::Key_W){
             //balaCanon->move
@@ -112,11 +139,13 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
 void MainWindow::on_btn_1_clicked()
 {
     maximoDisparos=1;
+    disparar();
 }
 
 void MainWindow::on_btn_3_clicked()
 {
     maximoDisparos=3;
+    disparar();
 }
 
 void MainWindow::on_btn_1def_clicked()
