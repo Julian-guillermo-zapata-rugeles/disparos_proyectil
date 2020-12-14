@@ -36,6 +36,7 @@ public:
     unsigned short int maximoDisparos=1;
     unsigned short int maximoDefensivos=1;
     bool onair=false;
+    int angle=0;
 
 public slots:
     void moverObjetos();

@@ -54,6 +54,8 @@ void MainWindow::moverObjetos()
     }
     if(proyectiles.size()==0){
         onair=false;
+        deteccion->stop();
+        atacar->stop();
     }
     for(auto& ti:proyectiles){
         for(auto& is:proyectilesDefensivos){
@@ -76,6 +78,8 @@ void MainWindow::defensaObjetos()
 {
     if(defendiendose==true){
          atacar->start(300);
+         reproductor->setMedia(QUrl("qrc:/sonidos/detect.mp3"));
+         reproductor->play();
     }
 }
 
@@ -86,15 +90,20 @@ void MainWindow::ataqueSeguido()
     if(defendiendose==true){
         if(onair==false){
             for(unsigned short int a=0;a<maximoDefensivos;a++){
-                tmpProyectil =new proyectil(90-canonUno->getAngulo()-8+rand()%12,130,canonDos->getCoordenada_x()+30,canonDos->getCoordenada_y(),20,20);
+                if(-1*canonUno->getAngulo()<45){
+                    angle=  90-canonUno->getAngulo()+15+rand()%18;
+                }
+                else{
+                    angle = 90-canonUno->getAngulo()-15+rand()%18;
+                }
+                tmpProyectil =new proyectil(angle,180,canonDos->getCoordenada_x()+30,canonDos->getCoordenada_y(),20,20);
                 proyectilesDefensivos.push_back(tmpProyectil);
                 escena->addItem(tmpProyectil);
                 onair=true;
             }
         }
          //short int aleatorio = 90+ rand() % 120;
-         reproductor->setMedia(QUrl("qrc:/sonidos/detect.mp3"));
-         reproductor->play();
+
 
          }
     }
